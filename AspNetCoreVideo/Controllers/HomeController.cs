@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AspNetCoreVideo.Models;
 using AspNetCoreVideo.Services;
 using AspNetCoreVideo.ViewModels;
+using AspNetCoreVideo.Entities;
 
 namespace AspNetCoreVideo.Controllers
 {
@@ -25,7 +22,7 @@ namespace AspNetCoreVideo.Controllers
                 {
                     ID = video.ID,
                     Title = video.Title,
-                    Genre = Enum.GetName(typeof(Genres), video.GenreID)
+                    Genre = video.Genre.ToString()
                 });
 
             return View(model);
@@ -45,9 +42,33 @@ namespace AspNetCoreVideo.Controllers
                 {
                     ID = model.ID,
                     Title = model.Title,
-                    Genre = Enum.GetName(typeof(Genres), model.GenreID)
+                    Genre = model.Genre.ToString()
                 });
             }
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(VideoEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var video = new Video
+                {
+                    Title = model.Title,
+                    Genre = model.Genre
+                };
+
+                _videos.Add(video);
+
+                return RedirectToAction("Details", new { id = video.ID });
+            }
+            return View();
         }
     }
 }

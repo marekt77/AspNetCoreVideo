@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AspNetCoreVideo.Etities;
+using AspNetCoreVideo.Entities;
 
 namespace AspNetCoreVideo.Services
 {
     public interface IVideoData
     {
-        IEnumerable<Video> GetAll();
+        List<Video> GetAll();
 
         Video Get(int id);
+
+        void Add(Video newVideo);
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AspNetCoreVideo.Etities;
+using AspNetCoreVideo.Entities;
 
 namespace AspNetCoreVideo.Services
 {
@@ -12,13 +12,13 @@ namespace AspNetCoreVideo.Services
         {
             _videos = new List<Video>
             {
-                new Video {ID=1, GenreID = 1, Title = "Shreck"},
-                new Video {ID=2, GenreID = 1, Title = "Despicable Me"},
-                new Video {ID=3, GenreID = 1, Title = "Megamind"}
+                new Video {ID=1, Genre = Models.Genres.Comedy, Title = "Shreck"},
+                new Video {ID=2, Genre = Models.Genres.Comedy, Title = "Despicable Me"},
+                new Video {ID=3, Genre = Models.Genres.Comedy, Title = "Megamind"}
             };
         }
 
-        public IEnumerable<Video> GetAll()
+        public List<Video> GetAll()
         {
             return _videos;
         }
@@ -28,6 +28,14 @@ namespace AspNetCoreVideo.Services
             return _videos.FirstOrDefault(v => v.ID.Equals(id));
         }
 
-        private IEnumerable<Video> _videos;
+        public void Add(Video newVideo)
+        {
+            newVideo.ID = _videos.Max(v => v.ID) + 1;
+            _videos.Add(newVideo);
+        }
+
+        private List<Video> _videos;
+
+
     }
 }
