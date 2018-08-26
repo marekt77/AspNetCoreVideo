@@ -32,6 +32,11 @@ namespace AspNetCoreVideo.Services
             _videos.Add(newVideo);
         }
 
+        public int Commit()
+        {
+            return 0;
+        }
+
         private List<Video> _videos;
     }
 }
