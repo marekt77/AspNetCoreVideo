@@ -6,7 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AspNetCoreVideo.Services;
 using AspNetCoreVideo.Data;
+using AspNetCoreVideo.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace AspNetCoreVideo
 {
@@ -33,6 +36,9 @@ namespace AspNetCoreVideo
             var conn = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<VideoDBContext>(options => options.UseSqlServer(conn));
 
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<VideoDBContext>();
+
             services.AddMvc();
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IMessageService, ConfigurationMessageService>();
@@ -48,6 +54,7 @@ namespace AspNetCoreVideo
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {

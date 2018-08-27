@@ -1,4 +1,5 @@
 ﻿using AspNetCoreVideo.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreVideo.Data
 {
-    public class VideoDBContext : DbContext
+    public class VideoDBContext : IdentityDbContext<User>
     {
         public DbSet<Video> Videos { get; set; }
 

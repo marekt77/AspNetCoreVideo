@@ -12,9 +12,10 @@ using System;
 namespace AspNetCoreVideo.Migrations
 {
     [DbContext(typeof(VideoDBContext))]
-    partial class VideoDBContextModelSnapshot : ModelSnapshot
+    [Migration("20180826225909_IdentityTables")]
+    partial class IdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
